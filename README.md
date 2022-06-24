@@ -1,4 +1,19 @@
+# RPG-UR5
+
+This repository was adapted from https://github.com/qlan3/Explorer/tree/941051819ce27941b1fbf302f5a814be165514fc. It was modified to run the real-world robot experiments of [Lan et al. (2022)](https://arxiv.org/abs/2103.05147) on a UR5 arm.
+
+Here are the steps to run the UR5 experiments:
+1. Create and activate a virtual environment with python version 3.8.12
+2. Run `pip install -r requirements.txt`
+3. Clone the specific SenseAct commit https://github.com/homayoonfarrahi/cycle-time-study/tree/e510a7ff88613892e9ad754e9ac40d83c5581f43/senseact_mod
+4. Install SenseAct by running `cd senseact_mod` and `pip install -e .`
+5. Run the script `ur5_script.sh`
+
+### Reference
+Lan, Q., Tosatto, S., Farrahi, H., Mahmood, A. R. (2022). [Model-free policy learning with reward gradients](https://arxiv.org/abs/2103.05147). In *Proceedings of The 25th International Conference on Artificial Intelligence and Statistics*.
+
 # Explorer
+Below are the notes from the original repository.
 
 Explorer is a PyTorch reinforcement learning framework for **exploring** new ideas.
 
@@ -121,7 +136,7 @@ Inside `analysis.py`, `unfinished_index` will print out the configuration indexe
 Enjoy!
 
 
-## Code of My Papers
+## Code of Qingfeng's Papers
 
 - **Qingfeng Lan**, Yangchen Pan, Alona Fyshe, Martha White. **Maxmin Q-learning: Controlling the Estimation Bias of Q-learning.** ICLR, 2020. **(Poster)** [[paper]](https://openreview.net/pdf?id=Bkg0u3Etwr) [[code]](https://github.com/qlan3/Explorer/releases/tag/maxmin1.0) [[video]](https://iclr.cc/virtual/poster_Bkg0u3Etwr.html)
 
