@@ -48,7 +48,13 @@ class ActorCritic(REINFORCE):
     mode = 'Train'
     self.start_time = time.time()
     self.reset_game('Train')
-    self.reset_game('Test')
+    # self.reset_game('Test')
+    ret_dir = f'ur5_logs/{self.cfg["seed"]}/'
+    ret_filename = ret_dir + f'{self.cfg["agent"]["name"]}.csv'
+    os.makedirs(ret_dir, exist_ok=True)
+    if os.path.exists(ret_filename):
+      os.remove(ret_filename)
+
     while self.step_count < self.train_steps:
       if mode == 'Train' and self.cfg['test_per_epochs'] > 0 and self.epoch_count % self.cfg['test_per_epochs'] == 0:
         mode = 'Test'
@@ -85,6 +91,12 @@ class ActorCritic(REINFORCE):
         self.state[mode] = self.next_state[mode]
         # End of one episode
         if self.done[mode]:
+          print(f'{self.step_count} ( {self.episode_step_count[mode]} ) {self.episode_return[mode]}')
+          ret_dir = f'ur5_logs/{self.cfg["seed"]}/'
+          ret_filename = ret_dir + f'{self.cfg["agent"]["name"]}.csv'
+          with open(ret_filename, 'a', encoding='utf-8') as ret_file:
+            ret_file.write(f'{self.step_count}, {self.episode_return[mode]}, {self.episode_step_count[mode]}\n')
+
           self.save_episode_result(mode)
           self.episode_count += 1
           self.reset_game(mode)

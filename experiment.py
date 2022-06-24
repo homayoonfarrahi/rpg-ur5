@@ -41,12 +41,20 @@ class Experiment(object):
     self.agent = getattr(agents, self.agent_name)(self.cfg)
     self.agent.env['Train'].seed(self.cfg['seed'])
     self.agent.env['Train'].action_space.np_random.seed(self.cfg['seed'])
-    self.agent.env['Test'].seed(self.cfg['seed'])
-    self.agent.env['Test'].action_space.np_random.seed(self.cfg['seed'])
+    # self.agent.env['Test'].seed(self.cfg['seed'])
+    # self.agent.env['Test'].action_space.np_random.seed(self.cfg['seed'])
+
+    # Start environment processes
+    if self.env_name == 'UR5_2D_V2':
+        self.agent.env['Train'].start()
+        # self.agent.env['Test'].start()
+
     # Train && Test
     self.agent.run_steps(render=self.cfg['render'])
+    self.agent.env['Train'].close()
+
     # Save model
-    # self.save_model()
+    self.save_model()
     self.end_time = time.time()
     self.agent.logger.info(f'Memory usage: {rss_memory_usage():.2f} MB')
     self.agent.logger.info(f'Time elapsed: {(self.end_time-self.start_time)/60:.2f} minutes')
